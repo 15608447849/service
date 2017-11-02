@@ -1,0 +1,63 @@
+[ INFO] 2017-08-23 16:18:22,519 [] [] XNIO version 3.3.6.Final
+[ INFO] 2017-08-23 16:18:22,539 [] [] XNIO NIO Implementation Version 3.3.6.Final
+[ INFO] 2017-08-23 16:18:22,811 [] [] Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@954b04f: display name [org.springframework.context.support.FileSystemXmlApplicationContext@954b04f]; startup date [Wed Aug 23 16:18:22 CST 2017]; root of context hierarchy
+[ INFO] 2017-08-23 16:18:22,843 [] [] Loading XML bean definitions from file [C:\Users\user\Desktop\t-io\service\res\ftpconfig.xml]
+[ INFO] 2017-08-23 16:18:22,975 [] [] Bean factory for application context [org.springframework.context.support.FileSystemXmlApplicationContext@954b04f]: org.springframework.beans.factory.support.DefaultListableBeanFactory@3ec300f1
+[ INFO] 2017-08-23 16:18:22,986 [] [] Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@3ec300f1: defining beans [org.apache.ftpserver.listener.ListenerFactory#0,org.apache.ftpserver.usermanager.PropertiesUserManagerFactory#0,org.apache.ftpserver.FtpServerFactory#0,ftpserver]; root of factory hierarchy
+[ INFO] 2017-08-23 16:18:23,105 [] [] FTP server started
+[ INFO] 2017-08-23 17:18:09,651 [] [] XNIO version 3.3.6.Final
+[ INFO] 2017-08-23 17:18:09,678 [] [] XNIO NIO Implementation Version 3.3.6.Final
+[ INFO] 2017-08-23 17:18:10,125 [] [] Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@954b04f: display name [org.springframework.context.support.FileSystemXmlApplicationContext@954b04f]; startup date [Wed Aug 23 17:18:10 CST 2017]; root of context hierarchy
+[ INFO] 2017-08-23 17:18:10,162 [] [] Loading XML bean definitions from file [C:\IDEAWORK\workspeace\service\res\ftpconfig.xml]
+[ INFO] 2017-08-23 17:18:10,412 [] [] Bean factory for application context [org.springframework.context.support.FileSystemXmlApplicationContext@954b04f]: org.springframework.beans.factory.support.DefaultListableBeanFactory@3ec300f1
+[ INFO] 2017-08-23 17:18:10,468 [] [] Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@3ec300f1: defining beans [org.apache.ftpserver.listener.ListenerFactory#0,org.apache.ftpserver.usermanager.PropertiesUserManagerFactory#0,org.apache.ftpserver.FtpServerFactory#0,ftpserver]; root of factory hierarchy
+[ INFO] 2017-08-23 17:18:10,626 [] [] FTP server started
+[ INFO] 2017-08-23 17:23:39,406 [] [] Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@36aa7bc2: display name [org.springframework.context.support.FileSystemXmlApplicationContext@36aa7bc2]; startup date [Wed Aug 23 17:23:39 CST 2017]; root of context hierarchy
+[ INFO] 2017-08-23 17:23:39,452 [] [] Loading XML bean definitions from file [C:\IDEAWORK\workspeace\service\res\ftpconfig.xml]
+[ INFO] 2017-08-23 17:23:39,581 [] [] Bean factory for application context [org.springframework.context.support.FileSystemXmlApplicationContext@36aa7bc2]: org.springframework.beans.factory.support.DefaultListableBeanFactory@3d24753a
+[ INFO] 2017-08-23 17:23:39,592 [] [] Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@3d24753a: defining beans [org.apache.ftpserver.listener.ListenerFactory#0,org.apache.ftpserver.usermanager.PropertiesUserManagerFactory#0,org.apache.ftpserver.FtpServerFactory#0,ftpserver]; root of factory hierarchy
+[ INFO] 2017-08-23 17:23:39,779 [] [] FTP server started
+[ INFO] 2017-08-23 17:23:39,912 [] [] XNIO version 3.3.6.Final
+[ INFO] 2017-08-23 17:23:39,928 [] [] XNIO NIO Implementation Version 3.3.6.Final
+[ INFO] 2017-08-23 17:23:53,714 [] [] Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@36aa7bc2: display name [org.springframework.context.support.FileSystemXmlApplicationContext@36aa7bc2]; startup date [Wed Aug 23 17:23:53 CST 2017]; root of context hierarchy
+[ INFO] 2017-08-23 17:23:53,768 [] [] Loading XML bean definitions from file [C:\IDEAWORK\workspeace\service\res\ftpconfig.xml]
+[ INFO] 2017-08-23 17:23:53,891 [] [] Bean factory for application context [org.springframework.context.support.FileSystemXmlApplicationContext@36aa7bc2]: org.springframework.beans.factory.support.DefaultListableBeanFactory@3d24753a
+[ INFO] 2017-08-23 17:23:53,903 [] [] Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@3d24753a: defining beans [org.apache.ftpserver.listener.ListenerFactory#0,org.apache.ftpserver.usermanager.PropertiesUserManagerFactory#0,org.apache.ftpserver.FtpServerFactory#0,ftpserver]; root of factory hierarchy
+[ INFO] 2017-08-23 17:23:54,071 [] [] FTP server started
+[ INFO] 2017-08-23 17:23:54,215 [] [] XNIO version 3.3.6.Final
+[ INFO] 2017-08-23 17:23:54,229 [] [] XNIO NIO Implementation Version 3.3.6.Final
+[ INFO] 2017-08-23 17:24:39,636 [] [] Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@36aa7bc2: display name [org.springframework.context.support.FileSystemXmlApplicationContext@36aa7bc2]; startup date [Wed Aug 23 17:24:39 CST 2017]; root of context hierarchy
+[ INFO] 2017-08-23 17:24:39,683 [] [] Loading XML bean definitions from file [C:\IDEAWORK\workspeace\service\res\ftpconfig.xml]
+[ INFO] 2017-08-23 17:24:39,801 [] [] Bean factory for application context [org.springframework.context.support.FileSystemXmlApplicationContext@36aa7bc2]: org.springframework.beans.factory.support.DefaultListableBeanFactory@3d24753a
+[ INFO] 2017-08-23 17:24:39,811 [] [] Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@3d24753a: defining beans [org.apache.ftpserver.listener.ListenerFactory#0,org.apache.ftpserver.usermanager.PropertiesUserManagerFactory#0,org.apache.ftpserver.FtpServerFactory#0,ftpserver]; root of factory hierarchy
+[ INFO] 2017-08-23 17:24:39,992 [] [] FTP server started
+[ INFO] 2017-08-23 17:24:40,119 [] [] XNIO version 3.3.6.Final
+[ INFO] 2017-08-23 17:24:40,133 [] [] XNIO NIO Implementation Version 3.3.6.Final
+[ INFO] 2017-08-23 17:26:55,149 [] [] Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@36aa7bc2: display name [org.springframework.context.support.FileSystemXmlApplicationContext@36aa7bc2]; startup date [Wed Aug 23 17:26:55 CST 2017]; root of context hierarchy
+[ INFO] 2017-08-23 17:26:55,191 [] [] Loading XML bean definitions from file [C:\IDEAWORK\workspeace\service\res\ftpconfig.xml]
+[ INFO] 2017-08-23 17:26:55,311 [] [] Bean factory for application context [org.springframework.context.support.FileSystemXmlApplicationContext@36aa7bc2]: org.springframework.beans.factory.support.DefaultListableBeanFactory@3d24753a
+[ INFO] 2017-08-23 17:26:55,322 [] [] Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@3d24753a: defining beans [org.apache.ftpserver.listener.ListenerFactory#0,org.apache.ftpserver.usermanager.PropertiesUserManagerFactory#0,org.apache.ftpserver.FtpServerFactory#0,ftpserver]; root of factory hierarchy
+[ INFO] 2017-08-23 17:26:55,504 [] [] FTP server started
+[ INFO] 2017-08-23 17:26:55,635 [] [] XNIO version 3.3.6.Final
+[ INFO] 2017-08-23 17:26:55,650 [] [] XNIO NIO Implementation Version 3.3.6.Final
+[ INFO] 2017-09-26 16:28:35,526 [] [] Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@36aa7bc2: display name [org.springframework.context.support.FileSystemXmlApplicationContext@36aa7bc2]; startup date [Tue Sep 26 16:28:35 CST 2017]; root of context hierarchy
+[ INFO] 2017-09-26 16:28:35,650 [] [] Loading XML bean definitions from file [C:\IDEAWORK\workspeace\service\res\ftpconfig.xml]
+[ INFO] 2017-09-26 16:28:35,884 [] [] Bean factory for application context [org.springframework.context.support.FileSystemXmlApplicationContext@36aa7bc2]: org.springframework.beans.factory.support.DefaultListableBeanFactory@3d24753a
+[ INFO] 2017-09-26 16:28:35,900 [] [] Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@3d24753a: defining beans [org.apache.ftpserver.listener.ListenerFactory#0,org.apache.ftpserver.usermanager.PropertiesUserManagerFactory#0,org.apache.ftpserver.FtpServerFactory#0,ftpserver]; root of factory hierarchy
+[ INFO] 2017-09-26 16:28:36,118 [] [] FTP server started
+[ INFO] 2017-09-26 16:28:36,259 [] [] XNIO version 3.3.6.Final
+[ INFO] 2017-09-26 16:28:36,274 [] [] XNIO NIO Implementation Version 3.3.6.Final
+[ INFO] 2017-09-26 16:29:13,236 [] [] Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@4b4523f8: display name [org.springframework.context.support.FileSystemXmlApplicationContext@4b4523f8]; startup date [Tue Sep 26 16:29:13 CST 2017]; root of context hierarchy
+[ INFO] 2017-09-26 16:29:13,314 [] [] Loading XML bean definitions from file [C:\IDEAWORK\workspeace\service\res\ftpconfig.xml]
+[ INFO] 2017-09-26 16:29:13,454 [] [] Bean factory for application context [org.springframework.context.support.FileSystemXmlApplicationContext@4b4523f8]: org.springframework.beans.factory.support.DefaultListableBeanFactory@2ddc8ecb
+[ INFO] 2017-09-26 16:29:13,470 [] [] Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@2ddc8ecb: defining beans [org.apache.ftpserver.listener.ListenerFactory#0,org.apache.ftpserver.usermanager.PropertiesUserManagerFactory#0,org.apache.ftpserver.FtpServerFactory#0,ftpserver]; root of factory hierarchy
+[ INFO] 2017-09-26 16:29:13,673 [] [] FTP server started
+[ INFO] 2017-09-26 16:29:13,813 [] [] XNIO version 3.3.6.Final
+[ INFO] 2017-09-26 16:29:13,844 [] [] XNIO NIO Implementation Version 3.3.6.Final
+[ INFO] 2017-09-26 16:32:37,155 [] [] Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@4b4523f8: display name [org.springframework.context.support.FileSystemXmlApplicationContext@4b4523f8]; startup date [Tue Sep 26 16:32:37 CST 2017]; root of context hierarchy
+[ INFO] 2017-09-26 16:32:37,218 [] [] Loading XML bean definitions from file [C:\IDEAWORK\workspeace\service\res\ftpconfig.xml]
+[ INFO] 2017-09-26 16:32:37,358 [] [] Bean factory for application context [org.springframework.context.support.FileSystemXmlApplicationContext@4b4523f8]: org.springframework.beans.factory.support.DefaultListableBeanFactory@2ddc8ecb
+[ INFO] 2017-09-26 16:32:37,374 [] [] Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@2ddc8ecb: defining beans [org.apache.ftpserver.listener.ListenerFactory#0,org.apache.ftpserver.usermanager.PropertiesUserManagerFactory#0,org.apache.ftpserver.FtpServerFactory#0,ftpserver]; root of factory hierarchy
+[ INFO] 2017-09-26 16:32:37,592 [] [] FTP server started
+[ INFO] 2017-09-26 16:32:37,733 [] [] XNIO version 3.3.6.Final
+[ INFO] 2017-09-26 16:32:37,764 [] [] XNIO NIO Implementation Version 3.3.6.Final

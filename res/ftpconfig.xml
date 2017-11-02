@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server xmlns="http://mina.apache.org/ftpserver/spring/v1"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://mina.apache.org/ftpserver/spring/v1 http://mina.apache.org/ftpserver/ftpserver-1.0.xsd"
+		id="ftpserver"
+	>
+	<listeners>
+		<nio-listener name="default" port="9999" idle-timeout="60" local-address="127.0.0.1">
+		
+			<data-connection idle-timeout="60">
+				<active enabled="false" local-address="127.0.0.1" local-port="2323" ip-check="true" />
+				<passive ports="60000-65535" address="127.0.0.1" external-address="127.0.0.1" />
+			</data-connection>
+			<!-- 黑名单 
+			<blacklist>1.2.3.0/16, 1.2.4.0/16, 1.2.3.4</blacklist>
+			-->
+		</nio-listener>
+	</listeners>
+
+	<file-user-manager file="./res/ftpusers.properties"
+		encrypt-passwords="false" />
+
+	<native-filesystem case-insensitive="false"
+		create-home="true" />
+</server>
