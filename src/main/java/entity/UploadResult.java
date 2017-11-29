@@ -3,14 +3,13 @@ package entity;
 /**
  * Created by user on 2017/7/11.
  */
-public class UploadResult {
+public class UploadResult extends Result {
     private String ftpUrl;
     private String httpUrl;
     private String relativePath;
     private String fileMd5;
     private String attr;
-    private int code;
-    private String message;
+
     private String suffix; //后缀
     private String sourceFileName;//源文件名
     private String currentFileName;//现在的文件名
@@ -47,23 +46,6 @@ public class UploadResult {
         this.fileMd5 = fileMd5;
     }
 
-    public int getCode() {
-        return code;
-    }
-
-    public UploadResult setCode(int code) {
-        this.code = code;
-        return this;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public UploadResult setMessage(String message) {
-        this.message = message;
-        return this;
-    }
 
     public String getAttr() {
         return attr;

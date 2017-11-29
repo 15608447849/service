@@ -1,13 +1,14 @@
 package servlet.iface;
 
+import com.google.gson.Gson;
 import com.winone.ftc.mtools.StringUtil;
-import entity.Config;
-import sun.rmi.runtime.Log;
+import entity.ConfigManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.net.URLDecoder;
@@ -20,10 +21,14 @@ public class Mservlet extends javax.servlet.http.HttpServlet {
     protected static final String  SPLIT =";";
     protected static final String regexVideoSuffix = ".*\\.(?:avi|rm|rmvb|mpeg|mpg|mpg|dat|mov|oq|asf|wmv|mp4)";
 
+
+    //跨域
     protected void filter(HttpServletResponse resp){
         resp.setHeader("Access-Control-Allow-Origin","*");
         resp.setHeader("Access-Control-Allow-Methods","*");
-        resp.setHeader("Access-Control-Allow-Headers","X_Requested_With,content-type,X-Requested-With,specify-path,specify-filename,save-md5");//
+        resp.setHeader("Access-Control-Allow-Headers","X_Requested_With,content-type,X-Requested-With," +
+                "specify-path,specify-filename,save-md5," +
+                "backup-param");
     }
 
     @Override
@@ -34,6 +39,8 @@ public class Mservlet extends javax.servlet.http.HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         filter(resp);
+        resp.setCharacterEncoding("UTF-8");
+        req.setCharacterEncoding("UTF-8");
     }
 
     protected void doOptions(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
@@ -78,7 +85,7 @@ public class Mservlet extends javax.servlet.http.HttpServlet {
             Socket socket = null;
             try {
                 String tmp = "video*"+filePath;
-                socket = new Socket("127.0.0.1", Config.get().getTransientServerPort());
+                socket = new Socket("127.0.0.1", ConfigManager.get().getTransientServerPort());
                 socket.getOutputStream().write(tmp.getBytes("utf-8"));
                 long currentTime = System.currentTimeMillis();
                 while(  (System.currentTimeMillis() - currentTime ) < 1000){
@@ -125,6 +132,16 @@ public class Mservlet extends javax.servlet.http.HttpServlet {
             min+=Math.round(Float.valueOf(strs[2]));
         }
         return min;
+    }
+
+    protected void writeJson(HttpServletResponse resp,Object o) {
+        try {
+            PrintWriter out = resp.getWriter();
+            out.write(new Gson().toJson(o));
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+        }
     }
 
 }

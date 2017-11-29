@@ -1,7 +1,6 @@
 package com.baidu.ueditor;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,9 +12,7 @@ import com.baidu.ueditor.define.State;
 import com.baidu.ueditor.hunter.FileManager;
 import com.baidu.ueditor.hunter.ImageHunter;
 import com.baidu.ueditor.upload.Uploader;
-import com.winone.ftc.mtools.FileUtil;
-import com.winone.ftc.mtools.Log;
-import entity.Config;
+import entity.ConfigManager;
 
 public class ActionEnter {
 
@@ -23,7 +20,7 @@ public class ActionEnter {
 	private HttpServletRequest request = null;
 	private String contextPath = null;
 	private String actionType = null;
-	private ConfigManager configManager = null;
+	private com.baidu.ueditor.ConfigManager configManager = null;
 	public ActionEnter (HttpServletRequest request) {
 		this.request = request;
 		this.actionType = request.getParameter( "action" );//获取参数 action
@@ -36,13 +33,13 @@ public class ActionEnter {
 			return new BaseState( false, AppInfo.INVALID_ACTION ).toJSONString();
 		}
 
-		File f = new File(Config.get().getBaiduConfigJsonPath());
+		File f = new File(ConfigManager.get().get_baidu_ConfigJsonPath());
 		if (!f.exists()){
 				return new BaseState( false, AppInfo.CONFIG_ERROR ).toJSONString();
 		}
 
 		try {
-			this.configManager = new ConfigManager( f,Config.get().getFileDirectory(), this.contextPath, request.getRequestURI() );
+			this.configManager = new com.baidu.ueditor.ConfigManager( f, ConfigManager.get().getFileDirectory(), this.contextPath, request.getRequestURI() );
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new BaseState( false, AppInfo.CONFIG_ERROR ).toJSONString();

@@ -4,11 +4,16 @@ package entity;
  * Created by user on 2017/8/17.
  */
 public class Info{
+    private String ftpLaunch;
+    private String resourceDirectory;
+    private String editorInfo;
+    private String translatePort;
     private String ftpUser;
     private String ftpPass;
     private String ftpHost;
     private String ftpPort;
     private String httpUploadAddress;
+    private String backupAddress;
 
     public String getFtpUser() {
         return ftpUser;
@@ -28,6 +33,24 @@ public class Info{
 
     public String getHttpUploadAddress() {
         return httpUploadAddress;
+    }
+
+    public String getBackupAddress() {return backupAddress;}
+
+    public String getFtpLaunch() {
+        return ftpLaunch;
+    }
+
+    public String getResourceDirectory() {
+        return resourceDirectory;
+    }
+
+    public String getEditorInfo() {
+        return editorInfo;
+    }
+
+    public String getTranslatePort() {
+        return translatePort;
     }
 
     public Info setHttpUploadAddress(String httpUploadAddress) {
@@ -52,6 +75,31 @@ public class Info{
 
     public Info setFtpPort(String ftpPort) {
         this.ftpPort = ftpPort;
+        return this;
+    }
+
+    public Info setBackupAddress(String backupAddress){
+        this.backupAddress = backupAddress;
+        return this;
+    }
+
+    public Info setFtpLaunch(String ftpLaunch) {
+        this.ftpLaunch = ftpLaunch;
+        return this;
+    }
+
+    public Info setResourceDirectory(String resourceDirctory) {
+        this.resourceDirectory = resourceDirctory;
+        return this;
+    }
+
+    public Info setEditorInfo(String editorInfo) {
+        this.editorInfo = editorInfo;
+        return this;
+    }
+
+    public Info setTranslatePort(String translatePort) {
+        this.translatePort = translatePort;
         return this;
     }
 }

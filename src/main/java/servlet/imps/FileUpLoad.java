@@ -5,7 +5,8 @@ import com.winone.ftc.mtools.FileUtil;
 import com.winone.ftc.mtools.Log;
 import com.winone.ftc.mtools.MD5Util;
 import com.winone.ftc.mtools.StringUtil;
-import entity.Config;
+import entity.ConfigManager;
+import entity.Result;
 import entity.UploadResult;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -29,16 +30,15 @@ public class FileUpLoad extends Mservlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doPost(req,resp);
-        resp.setCharacterEncoding("UTF-8");
-        req.setCharacterEncoding("UTF-8");
+
         ArrayList<UploadResult> resultList = new ArrayList<>();
         //根据判断是否指定保存路径
-        ArrayList<String> pathList =filterData(req.getHeader("specify-path"));
+        ArrayList<String> pathList = filterData(req.getHeader("specify-path"));
         if (pathList.size()>0){
             String path;
             for(int i=0;i<pathList.size();i++){
                 path = pathList.get(i);
-                path = path.substring(path.indexOf(FileUtil.SEPARATOR)+1);// 去掉前面'/'
+                if (!path.startsWith(FileUtil.SEPARATOR)) path = FileUtil.SEPARATOR+ path;//保证前面有 '/'
                 if (!path.endsWith(FileUtil.SEPARATOR)) path+= FileUtil.SEPARATOR; //后面保证 '/'
                 pathList.set(i,path);
             }
@@ -51,7 +51,7 @@ public class FileUpLoad extends Mservlet {
 
         try {
             // 创建一个ServletFileUpload对象
-            ServletFileUpload uploader = Config.get().getServletFileUploader();
+            ServletFileUpload uploader = ConfigManager.get().getServletFileUploader();
             ArrayList<FileItem> list = (ArrayList<FileItem>) uploader.parseRequest(req);
             Iterator<FileItem> iterator = list.iterator();
             while (iterator.hasNext()){
@@ -67,7 +67,7 @@ public class FileUpLoad extends Mservlet {
                     uploadResult = new UploadResult();
                     fileItem = list.get(i);
                     specifyPath = getData(pathList,i);
-                    if (StringUtil.isEntry(specifyPath)) specifyPath = "defaults/";
+                    if (StringUtil.isEntry(specifyPath)) specifyPath = "/defaults/";
                     specifyFileName = getData(fileNameList,i);
                     saveMD5Name = getData(fileSavaMD5,i);
                     if (!fileItem.isFormField()) {
@@ -79,7 +79,7 @@ public class FileUpLoad extends Mservlet {
                         //判断文件名存在
                         if (!StringUtil.isEntry(filename)){
                             Log.i("域名 :"+areaName+" ; 上传的文件: " + specifyPath+filename);
-                            String dirPath = StringUtil.isEntry(specifyPath) ? Config.get().getFileDirectory() : Config.get().getFileDirectory() + specifyPath; //本地目录
+                            String dirPath = StringUtil.isEntry(specifyPath) ? ConfigManager.get().getFileDirectory() : ConfigManager.get().getFileDirectory() + specifyPath; //本地目录
                             if (FileUtil.checkDir(dirPath)){
                                 try {
 
@@ -91,7 +91,7 @@ public class FileUpLoad extends Mservlet {
                                     if (filename.contains(".")){
                                         suffix = filename.substring(filename.lastIndexOf("."));
                                     }
-                                    String fileMd5 = MD5Util.getFileMD5String(file);//文件MD5
+                                    String fileMd5 = MD5Util.getFileMd5ByString(file);//文件MD5
                                     String cFileName = filename;
                                     String path = StringUtil.isEntry(specifyPath)?filename:specifyPath+filename;
                                     String localRelativePath = String.format("/%s",path);//指定的文件路径 + 指定的文件名
@@ -104,8 +104,8 @@ public class FileUpLoad extends Mservlet {
 //                                      FileUtil.deleteFile(dirPath + filename);
                                     }
 
-                                    String httpUrl = Config.get().getHttpUrl(path);
-                                    String ftpUrl = Config.get().getFtpUrl(path);
+                                    String httpUrl = ConfigManager.get().getHttpUrl(path);
+                                    String ftpUrl = ConfigManager.get().getFtpUrl(path);
 
 
 
@@ -119,41 +119,31 @@ public class FileUpLoad extends Mservlet {
                                     uploadResult.setCurrentFileName(cFileName);
                                     uploadResult.setSuffix(suffix);
                                     uploadResult.setMd5FileRelativePath(md5FileReletivePath);
-                                    uploadResult.setCode(200);
-                                    uploadResult.setMessage("success");
-                                    resultList.add(uploadResult);
+                                    uploadResult.setResultInfo(200,"success");
+
                                 } catch (Exception e) {
-//                                    e.printStackTrace();
-                                    uploadResult.setCode(400);
-                                    uploadResult.setMessage(e.toString());
+                                    uploadResult.setResultInfo(400,e.toString());
                                 }
                             }else{
-
-                                uploadResult.setCode(3);
-                                uploadResult.setMessage("directory does not exist or created fail.");
+                                uploadResult.setResultInfo(403,"directory does not exist or created fail.");
                             }
                         }else{
-                            uploadResult.setCode(404);
-                            uploadResult.setMessage("file name is entity.");
+                            uploadResult.setResultInfo(404,"file name is entity.");
                         }
                     }else{
-                        uploadResult.setCode(405);
-                        uploadResult.setMessage("this is form field,no file stream.");
+                        uploadResult.setResultInfo(405,"this is form field,no file stream.");
                     }
-
+                    resultList.add(uploadResult);//添加结果集合
             }
 
         } catch (Exception e) {
-//            e.printStackTrace();
-            resultList.add(new UploadResult().setCode(400).setMessage(e.getCause()+" : "+e.getMessage()));
+            resultList.add(new Result<UploadResult>().setResultInfo(400,e.toString()));
         }finally {
             // 向客户端返回结果
-            PrintWriter out = resp.getWriter();
-            out.write(new Gson().toJson(resultList));
-            out.flush();
-            out.close();
+          writeJson(resp,resultList);
         }
-        //
     }
+
+
 
 }
