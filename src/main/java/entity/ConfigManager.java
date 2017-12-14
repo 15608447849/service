@@ -1,6 +1,7 @@
 package entity;
 
 
+import com.m.backup.client.FtcBackupClient;
 import com.winone.ftc.mtools.FileUtil;
 import com.winone.ftc.mtools.Log;
 import com.winone.ftc.mtools.StringUtil;
@@ -31,7 +32,7 @@ public class ConfigManager {
     private WebInfo webInfo;
     private FtpInfo ftpInfo;
     private FtcInfo ftcInfo;
-
+    private  FtcBackupClient backupClient;
 
 
     public String getFileDirectory() {
@@ -58,6 +59,11 @@ public class ConfigManager {
         return backupSuccess;
     }
 
+
+    public FtcBackupClient getBackupClient() {
+        return backupClient;
+    }
+
     private static class InstantHolder{
         private static ConfigManager config = new ConfigManager();
     }
@@ -79,6 +85,7 @@ public class ConfigManager {
             ftpInfo = new FtpInfo(proper);
             ftcInfo = new FtcInfo(proper);
             checkPath();
+            backupClient = new FtcBackupClient(getFileDirectory(),10,2000);
         }catch (Exception e){
             e.printStackTrace();
             System.exit(-1);

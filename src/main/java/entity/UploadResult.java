@@ -11,7 +11,6 @@ public class UploadResult extends Result {
     private String attr;
 
     private String suffix; //后缀
-    private String sourceFileName;//源文件名
     private String currentFileName;//现在的文件名
     private String md5FileRelativePath;
     public String getFtpUrl() {
@@ -63,13 +62,6 @@ public class UploadResult extends Result {
         this.suffix = suffix;
     }
 
-    public String getSourceFileName() {
-        return sourceFileName;
-    }
-
-    public void setSourceFileName(String sourceFileName) {
-        this.sourceFileName = sourceFileName;
-    }
 
     public String getCurrentFileName() {
         return currentFileName;

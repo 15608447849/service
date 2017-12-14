@@ -31,6 +31,8 @@ public class Query extends Mservlet {
                 .setEditorInfo(ConfigManager.get().getHttpUrl(ConfigManager.get().getWebMainPath().substring(1)+"/editor"))
                 .setTranslatePort(ConfigManager.get().getTransientServerPort()+"")
                 .setResourceDirectory(ConfigManager.get().getFileDirectory())
+                .setBackupServerPort(ConfigManager.get().getBackupPort()+"")
+                .setUuploadAndBackupAddress(ConfigManager.get().getHttpUrl(ConfigManager.get().getWebMainPath().substring(1)+"/uploadAndBackup"))
 
         ));
     }

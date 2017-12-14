@@ -1,6 +1,5 @@
 package server;
 
-import com.m.backup.client.FtcBackupClient;
 import com.m.backup.server.FtcBackupServer;
 import com.winone.ftc.mtools.Log;
 import entity.ConfigManager;
@@ -19,11 +18,8 @@ import org.apache.ftpserver.listener.Listener;
 import org.apache.ftpserver.listener.nio.NioListener;
 import org.apache.ftpserver.usermanager.*;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
-import servlet.imps.FileBackup;
-import servlet.imps.FileUpLoad;
+import servlet.imps.*;
 import io.undertow.servlet.api.DeploymentInfo;
-import servlet.imps.Query;
-import servlet.imps.TestEditor;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -59,8 +55,9 @@ public class LunchServer {
             DeploymentInfo servletBuilder = io.undertow.servlet.Servlets.deployment()
                     .setClassLoader(LunchServer.class.getClassLoader())
                     .setContextPath(ConfigManager.get().getWebMainPath())
-                    .setDeploymentName("file_server.war")
-                    .addServlets(
+                    .setDeploymentName("file_server.war");
+            //添加文件上传
+            servletBuilder.addServlets(
                             io.undertow.servlet.Servlets.servlet("FileUpLoad", FileUpLoad.class).addMapping("/upload")
                     );
             //添加付文本编辑器
@@ -69,11 +66,14 @@ public class LunchServer {
             }
             if (ConfigManager.get().isAddBackupServlet()){
                 servletBuilder.addServlet(io.undertow.servlet.Servlets.servlet("FileBackup", FileBackup.class).addMapping("/backup"));
+                servletBuilder.addServlet(io.undertow.servlet.Servlets.servlet("FileUploadAndFileBackup", FileUpLoadAndFileBackup.class).addMapping("/uploadAndBackup"));
+
             }
                 servletBuilder.addServlet(io.undertow.servlet.Servlets.servlet("Query", Query.class).addMapping("/info"));
             DeploymentManager manager = Servlets.defaultContainer()
                     .addDeployment(servletBuilder);
             manager.deploy();
+            
             HttpHandler servletHandler = manager.start();
 
             PathHandler path = Handlers.path()
@@ -84,7 +84,6 @@ public class LunchServer {
             path.addPrefixPath(
                     "/",   //下载地址- 请勿修改
                     io.undertow.Handlers.resource(
-
                             new PathResourceManager(
                                     Paths.get(ConfigManager.get().getFileDirectory()),2048L,true,false,true,(String[])null
                             )

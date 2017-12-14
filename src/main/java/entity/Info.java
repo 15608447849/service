@@ -14,6 +14,8 @@ public class Info{
     private String ftpPort;
     private String httpUploadAddress;
     private String backupAddress;
+    private String uploadAndBackupAddress;
+    private String backupServerPort;
 
     public String getFtpUser() {
         return ftpUser;
@@ -53,6 +55,14 @@ public class Info{
         return translatePort;
     }
 
+    public String getBackupServerPort() {
+        return backupServerPort;
+    }
+
+    public String getUploadAndBackupAddress() {
+        return uploadAndBackupAddress;
+    }
+
     public Info setHttpUploadAddress(String httpUploadAddress) {
         this.httpUploadAddress = httpUploadAddress;
         return this;
@@ -88,8 +98,8 @@ public class Info{
         return this;
     }
 
-    public Info setResourceDirectory(String resourceDirctory) {
-        this.resourceDirectory = resourceDirctory;
+    public Info setResourceDirectory(String resourceDirectory) {
+        this.resourceDirectory = resourceDirectory;
         return this;
     }
 
@@ -100,6 +110,15 @@ public class Info{
 
     public Info setTranslatePort(String translatePort) {
         this.translatePort = translatePort;
+        return this;
+    }
+
+    public Info setBackupServerPort(String backupServerPort) {
+        this.backupServerPort = backupServerPort;
+        return this;
+    }
+    public Info setUuploadAndBackupAddress(String uploadAndBackupAddress) {
+        this.uploadAndBackupAddress = uploadAndBackupAddress;
         return this;
     }
 }
