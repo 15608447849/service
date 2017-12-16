@@ -8,7 +8,10 @@ import io.undertow.Handlers;
 import io.undertow.Undertow;
 import io.undertow.server.HttpHandler;
 import io.undertow.server.handlers.PathHandler;
+import io.undertow.server.handlers.resource.FileResourceManager;
 import io.undertow.server.handlers.resource.PathResourceManager;
+import io.undertow.server.handlers.resource.ResourceChangeEvent;
+import io.undertow.server.handlers.resource.ResourceChangeListener;
 import io.undertow.servlet.Servlets;
 import io.undertow.servlet.api.DeploymentManager;
 import org.apache.ftpserver.FtpServer;
@@ -76,18 +79,25 @@ public class LunchServer {
             
             HttpHandler servletHandler = manager.start();
 
-            PathHandler path = Handlers.path()
-                    .addPrefixPath(
-                            ConfigManager.get().getWebMainPath(),
+            PathHandler path = Handlers.path();
+            path.addPrefixPath(
+                            ConfigManager.get().getWebMainPath(),// /ftc 前缀交由servletHandler 处理
                             servletHandler
                     );
+
+
+
+            PathResourceManager pathResourceManager =  new PathResourceManager(
+                    Paths.get(ConfigManager.get().getFileDirectory()),
+                    4096L,
+                    false,
+                    false,
+                    false,
+                    null
+            );
             path.addPrefixPath(
                     "/",   //下载地址- 请勿修改
-                    io.undertow.Handlers.resource(
-                            new PathResourceManager(
-                                    Paths.get(ConfigManager.get().getFileDirectory()),2048L,true,false,true,(String[])null
-                            )
-                    )
+                    io.undertow.Handlers.resource(pathResourceManager)
             );
             Undertow server = Undertow
                     .builder()

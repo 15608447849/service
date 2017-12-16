@@ -5,9 +5,6 @@ import entity.ConfigManager;
 import entity.Result;
 import entity.UploadResult;
 import servlet.beans.FileBackupOperation;
-import servlet.iface.Mservlet;
-import sun.rmi.runtime.Log;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +30,7 @@ public class FileUpLoadAndFileBackup extends FileUpLoad {
                             listItems.add(upit.getMd5FileRelativePath());
                         }
                     }
-                    com.winone.ftc.mtools.Log.println(listItems);
+
                     bean.setFileItems(listItems);
                     new FileBackupOperation(bean, ConfigManager.get().getBackupClient()).execute();
                 }

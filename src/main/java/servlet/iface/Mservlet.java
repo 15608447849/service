@@ -29,7 +29,7 @@ public class Mservlet extends javax.servlet.http.HttpServlet {
     protected void filter(HttpServletResponse resp){
         resp.setHeader("Access-Control-Allow-Origin","*");
         resp.setHeader("Access-Control-Allow-Methods","*");
-        resp.setHeader("Access-Control-Allow-Headers","X_Requested_With,content-type,X-Requested-With," +
+        resp.setHeader("Access-Control-Allow-Headers", "X_Requested_With,content-type,X-Requested-With," +
                 "specify-path,specify-filename,save-md5," +
                 "backup-json");
     }
@@ -59,9 +59,7 @@ public class Mservlet extends javax.servlet.http.HttpServlet {
 
         String json = req.getHeader(headerKey);
         if (json!=null){
-            Log.println(json);
            T t = new Gson().fromJson(json,clazzType);
-           Log.println(t);
            return t;
         }
         return null;

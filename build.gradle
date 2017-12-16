@@ -14,7 +14,7 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile fileTree(include: ['/ftp/*.jar'], dir: 'libs')
     compile fileTree(include: ['/web/*.jar'], dir: 'libs')
-    compile fileTree(include: ['/other/*.jar'], dir: 'libs')
+    compile fileTree(include: ['/ftc/*.jar'], dir: 'libs')
 }
 String path=""
 task getLibsPath(){
