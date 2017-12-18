@@ -57,7 +57,7 @@ public class Mservlet extends javax.servlet.http.HttpServlet {
 
     protected <T> T getJsonObject(HttpServletRequest req,String headerKey,Class<T> clazzType) throws JsonSyntaxException{
 
-        String json = req.getHeader(headerKey);
+        final String json = req.getHeader(headerKey);
         if (json!=null){
            T t = new Gson().fromJson(json,clazzType);
            return t;

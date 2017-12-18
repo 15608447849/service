@@ -70,23 +70,21 @@ public class FileBackupOperation {
                     for (String path : fileItems){
 
                         file = new File(ConfigManager.get().getFileDirectory()+ path);
-
                             try {
                                 if (file.exists()){
                                     client.addBackupFile(file,inetSocketAddress);
                                 }else{
                                     throw new FileNotFoundException();
                                 }
-                            } catch (IOException e) {
+                            } catch (Exception e) {
                                 stringBuilder.append(path+",");
                             }
-
                     }
                     if (stringBuilder.length()>0){
                         stringBuilder.deleteCharAt(stringBuilder.length()-1);
-                        result.setResultInfo(408,"local not found file list : ["+stringBuilder.toString()+"]");
+                        result.setResultInfo(408,"local not found file list by ["+stringBuilder.toString()+"]");
                     }else{
-                        result.setResultInfo(200,"success by "+ add.getIp()+":"+add.getPort()+ "backup file.");
+                        result.setResultInfo(200,"success by "+ add.getIp()+":"+add.getPort()+ " backup file.");
                     }
         }
     }

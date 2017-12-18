@@ -35,6 +35,7 @@ public class FileUpLoadAndFileBackup extends FileUpLoad {
                     new FileBackupOperation(bean, ConfigManager.get().getBackupClient()).execute();
                 }
             } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
