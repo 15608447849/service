@@ -5,11 +5,11 @@
 		id="ftpserver"
 	>
 	<listeners>
-		<nio-listener name="default" port="9999" idle-timeout="60" local-address="172.16.0.200">
+		<nio-listener name="default" port="9999" idle-timeout="60" local-address="192.168.0.240">
 		
 			<data-connection idle-timeout="60">
-				<active enabled="false" local-address="172.16.0.200" local-port="2323" ip-check="true" />
-				<passive ports="60000-65535" address="172.16.0.200" external-address="172.16.0.200" />
+				<active enabled="false" local-address="192.168.0.240" local-port="2323" ip-check="true" />
+				<passive ports="60000-65535" address="192.168.0.240" external-address="192.168.0.240" />
 			</data-connection>
 			<!-- 黑名单 
 			<blacklist>1.2.3.0/16, 1.2.4.0/16, 1.2.3.4</blacklist>
