@@ -8,11 +8,10 @@ public class UploadResult extends Result {
     private String httpUrl;
     private String relativePath;
     private String fileMd5;
-    private String attr;
-
     private String suffix; //后缀
     private String currentFileName;//现在的文件名
-    private String md5FileRelativePath;
+    private String md5FileRelativePath;//MD5文件相对路径
+
     public String getFtpUrl() {
         return ftpUrl;
     }
@@ -43,15 +42,6 @@ public class UploadResult extends Result {
 
     public void setFileMd5(String fileMd5) {
         this.fileMd5 = fileMd5;
-    }
-
-
-    public String getAttr() {
-        return attr;
-    }
-
-    public void setAttr(String attr) {
-        this.attr = attr;
     }
 
     public String getSuffix() {

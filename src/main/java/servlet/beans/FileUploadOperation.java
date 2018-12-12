@@ -4,9 +4,10 @@ import com.winone.ftc.mtools.FileUtil;
 import com.winone.ftc.mtools.Log;
 import com.winone.ftc.mtools.MD5Util;
 import com.winone.ftc.mtools.StringUtil;
-import entity.ConfigManager;
+import entity.FtpInfo;
 import entity.Result;
 import entity.UploadResult;
+import entity.WebProperties;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
@@ -16,6 +17,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by user on 2017/12/14.
@@ -68,7 +70,7 @@ public class FileUploadOperation {
 
     private void saveFile(FileItem fileItem, String specifyPath, String specifyFileName, String saveMD5Name, UploadResult uploadResult) {
 
-        final String dirPath = ConfigManager.get().getFileDirectory(); //本地绝对目录
+        final String dirPath = WebProperties.get().rootPath; //本地绝对目录
         //创建目录
         if (!FileUtil.checkDir(dirPath+specifyPath)){
             uploadResult.setResultInfo(600,"directory does not exist or created fail.");
@@ -89,6 +91,7 @@ public class FileUploadOperation {
             fileItem.write(file); //流写入文件
 
             String fileMd5 = MD5Util.getFileMd5ByString(file);//文件MD5
+
             if (!StringUtil.isEntry(saveMD5Name)){
                 //创建目录
                 if (FileUtil.checkDir(dirPath + "/md5s" + specifyPath)){
@@ -96,14 +99,21 @@ public class FileUploadOperation {
                     FileUtil.copyFile(file,new File(dirPath + md5FileRelativePath)); //文件复制
                 }
             }
-            String attr = tryConnectLocalServerGetVideoLength(file.getCanonicalPath());
-            String httpUrl = ConfigManager.get().getHttpUrl(localRelativePath.substring(1));//去除路径前的 '/'
-            String ftpUrl = ConfigManager.get().getFtpUrl(localRelativePath.substring(1));
-
+            String httpUrl = String.format(Locale.CANADA,"http://%s:%d%s",
+                    WebProperties.get().webIp,
+                    WebProperties.get().webPort,
+                    localRelativePath
+            );
+            String ftpUrl = String.format(Locale.CANADA,"ftp://%s:%d@%s:%s%s",
+                    FtpInfo.get().host,
+                    FtpInfo.get().port,
+                    FtpInfo.get().user,
+                    FtpInfo.get().password,
+                    localRelativePath
+                    );
 
             uploadResult.setFtpUrl(ftpUrl);
             uploadResult.setHttpUrl(httpUrl);
-            uploadResult.setAttr(attr);
             uploadResult.setRelativePath(localRelativePath);
             uploadResult.setFileMd5(fileMd5);
             uploadResult.setCurrentFileName(specifyFileName);
@@ -112,78 +122,14 @@ public class FileUploadOperation {
             uploadResult.setResultInfo(200,"success");
 
         } catch (Exception e) {
+            e.printStackTrace();
             uploadResult.setResultInfo(601,e.toString());
         }
     }
-
 
     private String getIndexValue(List<String> dataList,int index,String def){
         if (dataList.size()>index) return dataList.get(index);
         return StringUtil.isEntry(def)?null:def;
     }
-
-    protected String tryConnectLocalServerGetVideoLength(String filePath){
-        final String regexVideoSuffix = ".*\\.(?:avi|rm|rmvb|mpeg|mpg|mpg|dat|mov|oq|asf|wmv|mp4)";
-        String result = "node";
-        if (!(StringUtil.isEntry(filePath))){
-            if (!filePath.matches(regexVideoSuffix)){
-                return result;
-            }
-
-            Socket socket = null;
-            try {
-                String tmp = "video*"+filePath;
-                socket = new Socket("127.0.0.1", ConfigManager.get().getTransientServerPort());
-                socket.getOutputStream().write(tmp.getBytes("utf-8"));
-                long currentTime = System.currentTimeMillis();
-                while(  (System.currentTimeMillis() - currentTime ) < 1000){
-
-                    if (socket.getInputStream().available() > 0){
-                        byte[] buffer  = new byte[socket.getInputStream().available()];
-                        socket.getInputStream().read(buffer);
-                        result = new String(buffer,"utf-8");
-                        break;
-                    }
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                    }
-                }
-            } catch (Exception e) {
-//                e.printStackTrace();
-            }finally {
-                if ( socket!=null){
-                    try {
-                        socket.close();
-                    } catch (IOException e) {
-                    }
-                }
-            }
-        }
-        if (!result.equals("node")){
-            int len = getTimelen(result);
-            com.winone.ftc.mtools.Log.i("转换视频并获取时长: "+ filePath+" - "+ len);
-            return String.valueOf(len);
-        }
-        return result;
-    }
-
-    //格式:"00:00:10.68"
-    private int getTimelen(String timelen){
-        int min=0;
-        String strs[] = timelen.split(":");
-        if (strs[0].compareTo("0") > 0) {
-            min+=Integer.valueOf(strs[0])*60*60;//秒
-        }
-        if(strs[1].compareTo("0")>0){
-            min+=Integer.valueOf(strs[1])*60;
-        }
-        if(strs[2].compareTo("0")>0){
-            min+=Math.round(Float.valueOf(strs[2]));
-        }
-        return min;
-    }
-
-
 
 }

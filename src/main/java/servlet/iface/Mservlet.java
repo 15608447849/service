@@ -4,8 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.winone.ftc.mtools.Log;
 import com.winone.ftc.mtools.StringUtil;
-import entity.BackupParamBean;
-import entity.ConfigManager;
 import servlet.beans.FileBackupOperation;
 
 import javax.servlet.ServletException;
@@ -23,15 +21,13 @@ import java.util.ArrayList;
  */
 public class Mservlet extends javax.servlet.http.HttpServlet {
 
-
-
     //跨域
     protected void filter(HttpServletResponse resp){
         resp.setHeader("Access-Control-Allow-Origin","*");
         resp.setHeader("Access-Control-Allow-Methods","*");
-        resp.setHeader("Access-Control-Allow-Headers", "X_Requested_With,content-type,X-Requested-With," +
-                "specify-path,specify-filename,save-md5," +
-                "backup-json");
+        resp.setHeader("Access-Control-Allow-Headers",
+                "X_Requested_With,content-type,X-Requested-With," +
+                "specify-path,specify-filename,save-md5");
     }
 
     @Override

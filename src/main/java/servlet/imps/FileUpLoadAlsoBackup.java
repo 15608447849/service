@@ -1,7 +1,6 @@
 package servlet.imps;
-
-import entity.BackupParamBean;
-import entity.ConfigManager;
+import com.winone.ftc.mtools.Log;
+import entity.BackupProperties;
 import entity.Result;
 import entity.UploadResult;
 import servlet.beans.FileBackupOperation;
@@ -13,15 +12,13 @@ import java.util.List;
  * Created by user on 2017/12/14.
  * 上传完文件并且同步文件
  */
-public class FileUpLoadAndFileBackup extends FileUpLoad {
+public class FileUpLoadAlsoBackup extends FileUpLoad {
 
     @Override
     protected void subHook(HttpServletRequest req, List<Result> resultList) {
+        if (!BackupProperties.get().isAuto) return;
         if (resultList!=null){
-
             try {
-                BackupParamBean bean = getJsonObject(req,"backup-json",BackupParamBean.class);
-                if (bean!=null){
                     ArrayList<String> listItems = new ArrayList<>();
                     for (Result it : resultList){
                         final UploadResult upit = (UploadResult) it;
@@ -30,10 +27,7 @@ public class FileUpLoadAndFileBackup extends FileUpLoad {
                             listItems.add(upit.getMd5FileRelativePath());
                         }
                     }
-
-                    bean.setFileItems(listItems);
-                    new FileBackupOperation(bean, ConfigManager.get().getBackupClient()).execute();
-                }
+                    new FileBackupOperation(listItems).execute();
             } catch (Exception e) {
                 e.printStackTrace();
             }

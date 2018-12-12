@@ -2,9 +2,9 @@ package servlet.beans;
 
 import com.m.backup.client.FtcBackupClient;
 import com.winone.ftc.mtools.NetworkUtil;
-import entity.BackupParamBean;
-import entity.ConfigManager;
+import entity.BackupProperties;
 import entity.Result;
+import entity.WebProperties;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,73 +19,54 @@ import java.util.List;
  */
 public class FileBackupOperation {
 
-    final int type;
-    final ArrayList<BackupParamBean.BAddress> addressItems ;
-    final ArrayList<String> fileItems;
-    final FtcBackupClient client;
-    final boolean isPing;
-    public FileBackupOperation(BackupParamBean backupParamBean,FtcBackupClient client) {
-      this.addressItems = backupParamBean.getAddressItems();
-      this.fileItems = backupParamBean.getFileItems();
-      this.type = backupParamBean.getType();
-        this.isPing = backupParamBean.isPing();
-      this.client = client;
-
+    private ArrayList<String> fileItems;
+    public FileBackupOperation(ArrayList<String> fileItems) {
+      this.fileItems = fileItems;
     }
 
     public List<Result> execute() throws Exception{
-        if (addressItems==null || addressItems.size()==0) throw new IllegalArgumentException("not found valid backup server address.");
         List<Result> resultList = new ArrayList<>();
-
-        Iterator<BackupParamBean.BAddress> iterator = addressItems.iterator();
-        BackupParamBean.BAddress add;
-        while(iterator.hasNext()){
-            add = iterator.next();
+        for (InetSocketAddress remoteAddress :  BackupProperties.get().remoteList){
             Result result = new Result();
-            translate(add,result);
+            translate(remoteAddress,result);
             resultList.add(result);
         }
+
         return resultList;
     }
 
-    private void translate(BackupParamBean.BAddress add, Result result) {
-        if (isPing && !NetworkUtil.ping(add.getIp())){
-            result.setResultInfo(405,"fail by ping "+ add.getIp()+".");
+    private void translate(InetSocketAddress add, Result result) {
+        if (!NetworkUtil.ping(add.getAddress().getHostAddress())){
+            result.setResultInfo(405,"fail by ping "+ add.getAddress().getHostAddress() +".");
             return;
         }
-        if (client==null) throw new IllegalStateException("invalid backupFtcClient.");
-            InetSocketAddress inetSocketAddress = new InetSocketAddress(add.getIp(),add.getPort());
-            if (type==0){
-                client.ergodicDirectory(inetSocketAddress);
-                result.setResultInfo(200,"success");
-            }else if (type==1){
+        FtcBackupClient client =  BackupProperties.get().ftcBackupServer.getClient();
 
-                if (fileItems==null || fileItems.size()==0){
-                    result.setResultInfo(407,"not found backup file item.");
-                    return;
-                }
-
-                    File file;
-                    StringBuilder stringBuilder = new StringBuilder();
-                    for (String path : fileItems){
-
-                        file = new File(ConfigManager.get().getFileDirectory()+ path);
-                            try {
-                                if (file.exists()){
-                                    client.addBackupFile(file,inetSocketAddress);
-                                }else{
-                                    throw new FileNotFoundException();
-                                }
-                            } catch (Exception e) {
-                                stringBuilder.append(path+",");
-                            }
-                    }
-                    if (stringBuilder.length()>0){
-                        stringBuilder.deleteCharAt(stringBuilder.length()-1);
-                        result.setResultInfo(408,"local not found file list by ["+stringBuilder.toString()+"]");
-                    }else{
-                        result.setResultInfo(200,"success by "+ add.getIp()+":"+add.getPort()+ " backup file.");
-                    }
+        if (fileItems==null || fileItems.size()==0){
+            result.setResultInfo(407,"not found backup file item.");
+            return;
         }
+
+        File file;
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String path : fileItems){
+            file = new File(WebProperties.get().rootPath + path);
+            try {
+                if (file.exists()){
+                    client.addBackupFile(file,add);
+                }else{
+                    throw new FileNotFoundException();
+                }
+            } catch (Exception e) {
+                stringBuilder.append(path+",");
+            }
+        }
+        if (stringBuilder.length() > 0){
+            stringBuilder.deleteCharAt(stringBuilder.length()-1);
+            result.setResultInfo(408,"local not found file list by ["+stringBuilder.toString()+"]");
+        }else{
+            result.setResultInfo(200,"success by "+ add.getAddress().getHostAddress() +":"+add.getPort()+ " backup file.");
+        }
+
     }
 }
