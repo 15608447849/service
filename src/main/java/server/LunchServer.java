@@ -59,6 +59,8 @@ public class LunchServer {
             servletBuilder.addServlets(io.undertow.servlet.Servlets.servlet("FileUpLoad", FileUpLoad.class).addMapping("/upload"));
             //文件上传并同步
             servletBuilder.addServlet(io.undertow.servlet.Servlets.servlet("FileUpLoadAlsoBackup", FileUpLoadAlsoBackup.class).addMapping("/backup"));
+            //服务器在线监测
+            servletBuilder.addServlet(io.undertow.servlet.Servlets.servlet("Online", Online.class).addMapping("/online"));
 
             DeploymentManager manager = Servlets.defaultContainer().addDeployment(servletBuilder);
 
@@ -172,7 +174,7 @@ public class LunchServer {
                 for (InetSocketAddress remoteAddress : BackupProperties.get().remoteList){
                     if (NetworkUtil.ping(remoteAddress.getAddress().getHostAddress())){
                         FtcBackupClient client =  BackupProperties.get().ftcBackupServer.getClient();
-                        client.ergodicDirectory(remoteAddress);
+                        client.ergodicDirectory(remoteAddress,".tmp");
                     }
                 }
             }

@@ -62,14 +62,19 @@ public class Mservlet extends javax.servlet.http.HttpServlet {
     }
 
 
-    protected void writeJson(HttpServletResponse resp,Object o) {
+    protected void writeString(HttpServletResponse resp,String str,boolean isClose){
         try {
             PrintWriter out = resp.getWriter();
-            out.write(new Gson().toJson(o));
+            out.write(str);
             out.flush();
-            out.close();
+            if (isClose) out.close();
         } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
+
+    protected void writeJson(HttpServletResponse resp,Object o) {
+        writeString(resp,new Gson().toJson(o),true);
     }
 
 }
