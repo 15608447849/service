@@ -60,7 +60,7 @@ public class FileUploadOperation {
             areaFileName = fileItem.getName();
             specifyPath = getIndexValue(specifyPaths,i,"/defaults/"+areaName+"/");
             specifyFileName = getIndexValue(specifyNames,i,areaFileName);
-            saveMD5Name = getIndexValue(specifyMd5,i,null);
+            saveMD5Name = getIndexValue(specifyMd5,i,"false");
             Log.i("域名 :"+areaName+" ; 上传的文件: " + specifyPath+specifyFileName);
             saveFile(fileItem,specifyPath,specifyFileName,saveMD5Name,uploadResult);
             resultList.add(uploadResult);//添加结果集合
@@ -92,7 +92,7 @@ public class FileUploadOperation {
 
             String fileMd5 = MD5Util.getFileMd5ByString(file);//文件MD5
 
-            if (!StringUtil.isEntry(saveMD5Name)){
+            if (!StringUtil.isEntry(saveMD5Name) && saveMD5Name.equals("true")){
                 //创建目录
                 if (FileUtil.checkDir(dirPath + "/md5s" + specifyPath)){
                     md5FileRelativePath = "/md5s" + specifyPath + fileMd5 + "." +suffix;
@@ -104,11 +104,11 @@ public class FileUploadOperation {
                     WebProperties.get().webPort,
                     localRelativePath
             );
-            String ftpUrl = String.format(Locale.CANADA,"ftp://%s:%d@%s:%s%s",
-                    FtpInfo.get().host,
-                    FtpInfo.get().port,
+            String ftpUrl = String.format(Locale.CANADA,"ftp://%s:%s@%s:%d%s",
                     FtpInfo.get().user,
                     FtpInfo.get().password,
+                    FtpInfo.get().host,
+                    FtpInfo.get().port,
                     localRelativePath
                     );
 
