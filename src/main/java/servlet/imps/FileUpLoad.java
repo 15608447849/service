@@ -55,7 +55,7 @@ public class FileUpLoad extends Mservlet {
         super.doPost(req,resp);
 
         List<Result> resultList = null;
-        Result result = new Result<UploadResult>().setResultInfo(199,"unknown error.");
+        Result result = new Result<UploadResult>().Info(199,"unknown error.");
         //根据判断是否指定保存路径
         ArrayList<String> pathList = filterData(req.getHeader("specify-path"));
         if (pathList.size()>0){
@@ -90,7 +90,7 @@ public class FileUpLoad extends Mservlet {
             subHook(req,resultList);
         } catch (Exception e) {
             e.printStackTrace();
-            result.setResultInfo(400,e.toString());
+            result.Info(400,e.toString());
         }finally {
           //向客户端返回结果
           Object object = resultList == null ? result : resultList;

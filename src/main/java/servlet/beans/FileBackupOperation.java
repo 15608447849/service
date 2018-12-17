@@ -8,10 +8,8 @@ import entity.WebProperties;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -37,13 +35,13 @@ public class FileBackupOperation {
 
     private void translate(InetSocketAddress add, Result result) {
         if (!NetworkUtil.ping(add.getAddress().getHostAddress())){
-            result.setResultInfo(405,"fail by ping "+ add.getAddress().getHostAddress() +".");
+            result.Info(405,"fail by ping "+ add.getAddress().getHostAddress() +".");
             return;
         }
         FtcBackupClient client =  BackupProperties.get().ftcBackupServer.getClient();
 
         if (fileItems==null || fileItems.size()==0){
-            result.setResultInfo(407,"not found backup file item.");
+            result.Info(407,"not found backup file item.");
             return;
         }
 
@@ -63,9 +61,9 @@ public class FileBackupOperation {
         }
         if (stringBuilder.length() > 0){
             stringBuilder.deleteCharAt(stringBuilder.length()-1);
-            result.setResultInfo(408,"local not found file list by ["+stringBuilder.toString()+"]");
+            result.Info(408,"local not found file list by ["+stringBuilder.toString()+"]");
         }else{
-            result.setResultInfo(200,"success by "+ add.getAddress().getHostAddress() +":"+add.getPort()+ " backup file.");
+            result.Info(200,"success by "+ add.getAddress().getHostAddress() +":"+add.getPort()+ " backup file.");
         }
 
     }

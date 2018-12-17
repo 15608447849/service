@@ -4,12 +4,15 @@ apply plugin: 'java'
 apply plugin: 'idea'
 
 sourceCompatibility = 1.8
+
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
 }
+
 repositories {
     mavenCentral()
 }
+
 def addLibs(String libsPath,def fun){
 
     File libs = file(libsPath)
@@ -23,6 +26,7 @@ def addLibs(String libsPath,def fun){
 
     }
 }
+
 dependencies {
     addLibs('libs',
             {
@@ -31,6 +35,7 @@ dependencies {
                     compile files(file.path)
             }
     )
+
 }
 String path=""
 task getLibsPath(){

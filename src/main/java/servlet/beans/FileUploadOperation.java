@@ -9,11 +9,8 @@ import entity.Result;
 import entity.UploadResult;
 import entity.WebProperties;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -61,7 +58,7 @@ public class FileUploadOperation {
             specifyPath = getIndexValue(specifyPaths,i,"/defaults/"+areaName+"/");
             specifyFileName = getIndexValue(specifyNames,i,areaFileName);
             saveMD5Name = getIndexValue(specifyMd5,i,"false");
-            Log.i("域名 :"+areaName+" ; 上传的文件: " + specifyPath+specifyFileName);
+            Log.i("表单域名 :"+areaName+" ; 表单名 :"+areaFileName+" ; 上传的文件: " + specifyPath+specifyFileName);
             saveFile(fileItem,specifyPath,specifyFileName,saveMD5Name,uploadResult);
             resultList.add(uploadResult);//添加结果集合
         }
@@ -73,7 +70,7 @@ public class FileUploadOperation {
         final String dirPath = WebProperties.get().rootPath; //本地绝对目录
         //创建目录
         if (!FileUtil.checkDir(dirPath+specifyPath)){
-            uploadResult.setResultInfo(600,"directory does not exist or created fail.");
+            uploadResult.Info(600,"directory does not exist or created fail.");
             return;
         }
         //获取后缀
@@ -112,18 +109,18 @@ public class FileUploadOperation {
                     localRelativePath
                     );
 
-            uploadResult.setFtpUrl(ftpUrl);
-            uploadResult.setHttpUrl(httpUrl);
-            uploadResult.setRelativePath(localRelativePath);
-            uploadResult.setFileMd5(fileMd5);
-            uploadResult.setCurrentFileName(specifyFileName);
-            uploadResult.setSuffix(suffix);
-            uploadResult.setMd5FileRelativePath(md5FileRelativePath);
-            uploadResult.setResultInfo(200,"success");
+            uploadResult.ftpUrl = ftpUrl;
+            uploadResult.httpUrl = httpUrl;
+            uploadResult.relativePath = localRelativePath;
+            uploadResult.fileMd5 = fileMd5;
+            uploadResult.currentFileName = specifyFileName;
+            uploadResult.suffix = suffix;
+            uploadResult.md5FileRelativePath = md5FileRelativePath;
+            uploadResult.Info(200,"success");
 
         } catch (Exception e) {
             e.printStackTrace();
-            uploadResult.setResultInfo(601,e.toString());
+            uploadResult.Info(601,e.toString());
         }
     }
 

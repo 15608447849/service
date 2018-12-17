@@ -21,10 +21,10 @@ public class FileUpLoadAlsoBackup extends FileUpLoad {
             try {
                     ArrayList<String> listItems = new ArrayList<>();
                     for (Result it : resultList){
-                        final UploadResult upit = (UploadResult) it;
-                        listItems.add(upit.getRelativePath());
-                        if (!upit.getMd5FileRelativePath().equals("node")){
-                            listItems.add(upit.getMd5FileRelativePath());
+                        final UploadResult uploadResult = (UploadResult) it;
+                        listItems.add(uploadResult.relativePath);
+                        if (!uploadResult.md5FileRelativePath.equals("node")){
+                            listItems.add(uploadResult.md5FileRelativePath); //同步MD5文件
                         }
                     }
                     new FileBackupOperation(listItems).execute();

@@ -4,25 +4,14 @@ package entity;
  * Created by user on 2017/11/29.
  */
 public class Result<T extends Result> {
-    private int code;
-    private String message;
-    public int getCode() {
-        return code;
-    }
 
-    public String getMessage() {
-        return message;
-    }
+    public int code;
 
-    public void setCode(int code) {
+    public String message;
+
+    public Result Info(int code, String message){
         this.code = code;
-    }
-    public void setMessage(String message) {
         this.message = message;
-    }
-    public T setResultInfo(int code,String message){
-        setCode(code);
-        setMessage(message);
-        return (T)this;
+        return this;
     }
 }

@@ -25,7 +25,6 @@ import servlet.imps.*;
 import io.undertow.servlet.api.DeploymentInfo;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetSocketAddress;
@@ -66,26 +65,23 @@ public class LunchServer {
 
             manager.deploy();
             
-            HttpHandler servletHandler = manager.start();
+            HttpHandler httpHandler = manager.start();
 
-            PathHandler path = Handlers.path();
+            PathHandler pathHandler = Handlers.path();
 
-            path.addPrefixPath(
-                           WebProperties.get().pathPrefix,// web访问路径前缀
-                            servletHandler
+            pathHandler.addPrefixPath(
+                           WebProperties.get().pathPrefix,//web访问路径前缀
+                    httpHandler
                     );
-
-
 
             PathResourceManager pathResourceManager =  new PathResourceManager(
                     Paths.get(WebProperties.get().rootPath),
                     4096L,
                     false,
                     false,
-                    false,
-                    null
+                    false
             );
-            path.addPrefixPath(
+            pathHandler.addPrefixPath(
                     "/",   //下载地址- 请勿修改
                     io.undertow.Handlers.resource(pathResourceManager)
             );
@@ -94,9 +90,10 @@ public class LunchServer {
                     .addHttpListener(
                             WebProperties.get().webPort,
                             WebProperties.get().webIp)
-                    .setHandler(path)
+                    .setHandler(pathHandler)
                     .build();
             server.start(); //开始运行
+            Log.i("已启动http服务");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -149,6 +146,7 @@ public class LunchServer {
                     }
                 }
                 FtpInfo.get().setInfo(host,port,user,pass);
+                Log.i("已启动FTP服务");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -170,14 +168,13 @@ public class LunchServer {
             BackupProperties.get().ftcBackupServer = new FtcBackupServer(WebProperties.get().rootPath,new InetSocketAddress(WebProperties.get().webIp, BackupProperties.get().localPort));
 
             if (BackupProperties.get().isBoot){
-
-                for (InetSocketAddress remoteAddress : BackupProperties.get().remoteList){
-                    if (NetworkUtil.ping(remoteAddress.getAddress().getHostAddress())){
-                        FtcBackupClient client =  BackupProperties.get().ftcBackupServer.getClient();
-                        client.ergodicDirectory(remoteAddress,".tmp");
+                    for (InetSocketAddress remoteAddress : BackupProperties.get().remoteList){
+                        if (NetworkUtil.ping(remoteAddress.getAddress().getHostAddress())){
+                            BackupProperties.get().ftcBackupServer.getClient().ergodicDirectory(remoteAddress,".tmp");
+                        }
                     }
-                }
             }
+            Log.i("已启动BACKUP服务");
         } catch (IOException e) {
             e.printStackTrace();
         }
