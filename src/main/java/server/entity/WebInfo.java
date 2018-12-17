@@ -1,4 +1,4 @@
-package entity;
+package server.entity;
 
 import com.winone.ftc.mtools.FileUtil;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;

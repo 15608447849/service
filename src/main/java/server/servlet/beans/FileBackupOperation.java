@@ -1,10 +1,10 @@
-package servlet.beans;
+package server.servlet.beans;
 
 import com.m.backup.client.FtcBackupClient;
 import com.winone.ftc.mtools.NetworkUtil;
-import entity.BackupProperties;
-import entity.Result;
-import entity.WebProperties;
+import server.entity.BackupProperties;
+import server.entity.Result;
+import server.entity.WebProperties;
 
 import java.io.File;
 import java.io.FileNotFoundException;

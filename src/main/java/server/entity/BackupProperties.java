@@ -1,7 +1,6 @@
-package entity;
+package server.entity;
 
 import com.m.backup.server.FtcBackupServer;
-import com.winone.ftc.mtools.FileUtil;
 import properties.abs.ApplicationPropertiesBase;
 import properties.annotations.PropertiesFilePath;
 import properties.annotations.PropertiesName;

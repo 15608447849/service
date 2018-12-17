@@ -15,6 +15,6 @@
 			-->
 		</nio-listener>
 	</listeners>
-	<file-user-manager file="./ftpusers.properties" encrypt-passwords="false" />
+	<file-user-manager file="ftpusers.properties" encrypt-passwords="false" />
 	<native-filesystem case-insensitive="false" create-home="true" />
 </server>

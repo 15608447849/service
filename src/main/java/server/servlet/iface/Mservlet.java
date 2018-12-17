@@ -1,20 +1,13 @@
-package servlet.iface;
+package server.servlet.iface;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.winone.ftc.mtools.Log;
-import com.winone.ftc.mtools.StringUtil;
-import servlet.beans.FileBackupOperation;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.Socket;
-import java.net.URLDecoder;
-import java.util.ArrayList;
 
 /**
  * Created by Administrator on 2017/5/31.

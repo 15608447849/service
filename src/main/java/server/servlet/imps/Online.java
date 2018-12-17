@@ -1,6 +1,6 @@
-package servlet.imps;
+package server.servlet.imps;
 
-import servlet.iface.Mservlet;
+import server.servlet.iface.Mservlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

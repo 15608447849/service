@@ -1,10 +1,4 @@
-package entity;
-
-import com.winone.ftc.mtools.FileUtil;
-import com.winone.ftc.mtools.Log;
-import org.omg.PortableInterceptor.HOLDING;
-
-import java.util.Properties;
+package server.entity;
 
 /**
  * Created by lzp on 2017/5/8.

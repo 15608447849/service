@@ -1,12 +1,11 @@
 package server;
 
-import com.m.backup.client.FtcBackupClient;
 import com.m.backup.server.FtcBackupServer;
 import com.winone.ftc.mtools.Log;
 import com.winone.ftc.mtools.NetworkUtil;
-import entity.BackupProperties;
-import entity.FtpInfo;
-import entity.WebProperties;
+import server.entity.BackupProperties;
+import server.entity.FtpInfo;
+import server.entity.WebProperties;
 import io.undertow.Handlers;
 import io.undertow.Undertow;
 import io.undertow.server.HttpHandler;
@@ -21,7 +20,7 @@ import org.apache.ftpserver.listener.Listener;
 import org.apache.ftpserver.listener.nio.NioListener;
 import org.apache.ftpserver.usermanager.*;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
-import servlet.imps.*;
+import server.servlet.imps.*;
 import io.undertow.servlet.api.DeploymentInfo;
 
 import java.io.File;

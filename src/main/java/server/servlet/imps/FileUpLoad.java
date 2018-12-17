@@ -1,15 +1,15 @@
-package servlet.imps;
+package server.servlet.imps;
 
 import com.winone.ftc.mtools.FileUtil;
 import com.winone.ftc.mtools.StringUtil;
-import entity.Result;
-import entity.UploadResult;
-import entity.WebProperties;
+import server.entity.Result;
+import server.entity.UploadResult;
+import server.entity.WebProperties;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import servlet.beans.FileUploadOperation;
-import servlet.iface.Mservlet;
+import server.servlet.beans.FileUploadOperation;
+import server.servlet.iface.Mservlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

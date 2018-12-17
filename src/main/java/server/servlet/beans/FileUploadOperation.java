@@ -1,13 +1,13 @@
-package servlet.beans;
+package server.servlet.beans;
 
 import com.winone.ftc.mtools.FileUtil;
 import com.winone.ftc.mtools.Log;
 import com.winone.ftc.mtools.MD5Util;
 import com.winone.ftc.mtools.StringUtil;
-import entity.FtpInfo;
-import entity.Result;
-import entity.UploadResult;
-import entity.WebProperties;
+import server.entity.FtpInfo;
+import server.entity.Result;
+import server.entity.UploadResult;
+import server.entity.WebProperties;
 import org.apache.commons.fileupload.FileItem;
 
 import java.io.File;
